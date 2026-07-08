@@ -1,2 +1,7 @@
 .cursor/
 .cursorrules
+
+# Agentic project structure (temporary / personal)
+ai/
+claude.md
+agents.md
