@@ -21,7 +21,7 @@ export default function Onboarding(_: Route.ComponentProps) {
           Your practice is <em>locked in.</em>
         </h1>
         <p className="text-stone-600 mb-4 leading-relaxed">
-          Every week you'll get a short check-in email, where you'll report whether you practiced your habit as planned, partially as planned, or not at all.
+          Every week you'll get a short check-in email, where you'll report whether you practiced your habit as-planned, partially as-planned, or not at all.
         </p>
         <p className="text-stone-600 mb-4 leading-relaxed">
           Weeks you miss show up as open dots in your history, just to give you data on your progress.
