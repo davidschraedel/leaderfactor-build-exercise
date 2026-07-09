@@ -106,6 +106,9 @@ export default function Checkin({ loaderData }: Route.ComponentProps) {
   return (
     <main className="min-h-screen bg-[#F5F2EC]">
       <div className="max-w-xl mx-auto px-6 py-16">
+        <p className="text-xs uppercase tracking-widest text-stone-400 mb-6">
+          ■ In the real flow, you arrive here by tapping a button in your check-in email
+        </p>
         <p className="text-sm uppercase tracking-widest text-stone-500 mb-4">■ WEEKLY CHECK-IN</p>
         <h1 className="text-4xl font-serif font-bold text-[#1A1F2E] mb-3">
           Hey {learnerName}, how did <em>practice go?</em>
@@ -142,9 +145,7 @@ export default function Checkin({ loaderData }: Route.ComponentProps) {
           ))}
         </div>
 
-        <p className="text-xs text-stone-400 mt-8 text-center">
-          No judgment here — missed weeks show up as open dots, not failures.
-        </p>
+        
       </div>
     </main>
   );

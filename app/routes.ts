@@ -7,5 +7,7 @@ export default [
   route('checkin', 'routes/checkin.tsx'),
   route('confirmation', 'routes/confirmation.tsx'),
   route('admin', 'routes/admin.tsx'),
+  route('preview/weekly-email', 'routes/preview/weekly-email.tsx'),
   route('preview/manager-email', 'routes/preview/manager-email.tsx'),
+  route('preview/send-demo', 'routes/preview/send-demo.tsx'),
 ] satisfies RouteConfig;

@@ -3,6 +3,7 @@ import { redirect } from 'react-router';
 import { Form } from 'react-router';
 import { RoleNav } from '~/components/RoleNav';
 import { db } from '~/db/index';
+import { SEED_IDS } from '~/db/seed';
 import { checkins, commitments, learners } from '~/db/schema';
 import { CURRENT_WEEK } from '~/lib/week';
 import type { Route } from './+types/commitment';
@@ -34,7 +35,7 @@ export async function loader(_: Route.LoaderArgs) {
   const [alex] = await db
     .select()
     .from(learners)
-    .where(eq(learners.name, 'Alex Chen'))
+    .where(eq(learners.id, SEED_IDS.learners.alex))
     .limit(1);
 
   if (!alex) throw new Response('Demo learner not found — run db:seed first', { status: 500 });
@@ -75,7 +76,7 @@ export async function action({ request }: Route.ActionArgs) {
     const [alex] = await db
       .select()
       .from(learners)
-      .where(eq(learners.name, 'Alex Chen'))
+      .where(eq(learners.id, SEED_IDS.learners.alex))
       .limit(1);
     if (alex) {
       await db.delete(commitments).where(eq(commitments.learnerId, alex.id));
@@ -94,7 +95,7 @@ export async function action({ request }: Route.ActionArgs) {
   const [alex] = await db
     .select()
     .from(learners)
-    .where(eq(learners.name, 'Alex Chen'))
+    .where(eq(learners.id, SEED_IDS.learners.alex))
     .limit(1);
 
   if (!alex) throw new Response('Demo learner not found', { status: 500 });

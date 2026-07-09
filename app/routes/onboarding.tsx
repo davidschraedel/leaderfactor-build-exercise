@@ -2,6 +2,7 @@ import { and, eq } from 'drizzle-orm';
 import { Form } from 'react-router';
 import { RoleNav } from '~/components/RoleNav';
 import { db } from '~/db/index';
+import { SEED_IDS } from '~/db/seed';
 import { checkins, commitments, learners } from '~/db/schema';
 import { CURRENT_WEEK } from '~/lib/week';
 import type { Route } from './+types/onboarding';
@@ -14,7 +15,7 @@ export async function loader(_: Route.LoaderArgs) {
   const [alex] = await db
     .select()
     .from(learners)
-    .where(eq(learners.name, 'Alex Chen'))
+    .where(eq(learners.id, SEED_IDS.learners.alex))
     .limit(1);
 
   if (!alex) return { checkinToken: null };
@@ -98,7 +99,7 @@ export default function Onboarding({ loaderData }: Route.ComponentProps) {
 
         {checkinToken && (
           <a
-            href={`/checkin?token=${checkinToken}`}
+            href={`/preview/weekly-email`}
             className="inline-block bg-[#1A2744] text-white px-8 py-3 rounded-full font-medium hover:bg-[#243460] transition-colors mb-6"
           >
             Preview this week's check-in →
@@ -109,7 +110,7 @@ export default function Onboarding({ loaderData }: Route.ComponentProps) {
           <input type="hidden" name="_action" value="reset" />
           <button
             type="submit"
-            className="text-sm text-stone-400 hover:text-stone-600 underline transition-colors"
+            className="cursor-pointer text-sm text-stone-400 hover:text-stone-600 underline transition-colors"
           >
             Change my practice focus
           </button>
