@@ -61,8 +61,9 @@ const CHECKIN_ROWS: SeedCheckin[] = [
   { id: '44444444-4444-4444-8444-444444444415', learnerId: SEED_IDS.learners.chris, weekNumber: CURRENT_WEEK, token: '55555555-5555-4555-8555-555555555515', response: null },
 ];
 
-async function clearSeedData() {
-  // Delete in FK-safe order (children before parents).
+// Deletes ALL rows in every table — intentional full reset for demo seeding.
+// Never call against a database with real user data.
+async function deleteAllRows() {
   await db.delete(checkins);
   await db.delete(commitments);
   await db.delete(learners);
@@ -70,7 +71,7 @@ async function clearSeedData() {
 }
 
 export async function seed() {
-  await clearSeedData();
+  await deleteAllRows();
 
   await db.insert(managers).values([
     { id: SEED_IDS.managers.jordan, name: 'Jordan Reyes', email: 'jordan.reyes@acme.com' },
