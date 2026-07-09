@@ -46,7 +46,23 @@ export async function loader(_: Route.LoaderArgs) {
     .where(eq(commitments.learnerId, alex.id))
     .limit(1);
 
-  if (existing) return redirect('/onboarding');
+  if (existing) {
+    // Ensure the current-week check-in row exists — recreate if deleted.
+    const [row] = await db
+      .select()
+      .from(checkins)
+      .where(and(eq(checkins.learnerId, alex.id), eq(checkins.weekNumber, CURRENT_WEEK)))
+      .limit(1);
+
+    if (!row) {
+      await db
+        .insert(checkins)
+        .values({ learnerId: alex.id, weekNumber: CURRENT_WEEK, token: crypto.randomUUID(), response: null })
+        .onConflictDoNothing();
+    }
+
+    return redirect('/onboarding');
+  }
 
   return { learnerName: alex.name };
 }

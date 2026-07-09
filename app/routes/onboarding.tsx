@@ -1,12 +1,60 @@
+import { and, eq } from 'drizzle-orm';
 import { Form } from 'react-router';
 import { RoleNav } from '~/components/RoleNav';
+import { db } from '~/db/index';
+import { checkins, commitments, learners } from '~/db/schema';
+import { CURRENT_WEEK } from '~/lib/week';
 import type { Route } from './+types/onboarding';
 
 export function meta(_: Route.MetaArgs) {
   return [{ title: "You're Set — LeaderFactor" }];
 }
 
-export default function Onboarding(_: Route.ComponentProps) {
+export async function loader(_: Route.LoaderArgs) {
+  const [alex] = await db
+    .select()
+    .from(learners)
+    .where(eq(learners.name, 'Alex Chen'))
+    .limit(1);
+
+  if (!alex) return { checkinToken: null };
+
+  const [currentCheckin] = await db
+    .select({ token: checkins.token })
+    .from(checkins)
+    .where(and(eq(checkins.learnerId, alex.id), eq(checkins.weekNumber, CURRENT_WEEK)))
+    .limit(1);
+
+  if (currentCheckin) return { checkinToken: currentCheckin.token };
+
+  // No current-week check-in row — recreate it if Alex has a commitment.
+  // This makes the demo resilient to manually deleted records.
+  const [commitment] = await db
+    .select()
+    .from(commitments)
+    .where(eq(commitments.learnerId, alex.id))
+    .limit(1);
+
+  if (!commitment) return { checkinToken: null };
+
+  const newToken = crypto.randomUUID();
+  await db
+    .insert(checkins)
+    .values({ learnerId: alex.id, weekNumber: CURRENT_WEEK, token: newToken, response: null })
+    .onConflictDoNothing();
+
+  // Re-fetch in case a concurrent request inserted first
+  const [row] = await db
+    .select({ token: checkins.token })
+    .from(checkins)
+    .where(and(eq(checkins.learnerId, alex.id), eq(checkins.weekNumber, CURRENT_WEEK)))
+    .limit(1);
+
+  return { checkinToken: row?.token ?? null };
+}
+
+export default function Onboarding({ loaderData }: Route.ComponentProps) {
+  const { checkinToken } = loaderData;
   return (
     <main className="min-h-screen">
       <RoleNav />
@@ -47,6 +95,15 @@ export default function Onboarding(_: Route.ComponentProps) {
             </li>
           </ul>
         </div>
+
+        {checkinToken && (
+          <a
+            href={`/checkin?token=${checkinToken}`}
+            className="inline-block bg-[#1A2744] text-white px-8 py-3 rounded-full font-medium hover:bg-[#243460] transition-colors mb-6"
+          >
+            Preview this week's check-in →
+          </a>
+        )}
 
         <Form method="post" action="/commitment">
           <input type="hidden" name="_action" value="reset" />
