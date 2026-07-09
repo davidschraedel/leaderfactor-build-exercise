@@ -16,7 +16,7 @@ export default function Index() {
           Where learning becomes <em>behavior.</em>
         </h1>
         <p className="text-stone-600 max-w-md mx-auto">
-          Habit-builder scaffold is ready. Phase 0 complete.
+          Phase 1 complete. Database schema, seed, and SSR config in place.
         </p>
       </div>
     </main>
