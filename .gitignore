@@ -5,3 +5,14 @@
 ai/
 claude.md
 agents.md
+
+
+node_modules/
+build/
+.react-router/
+.env
+.env.test
+.env.*.local
+*.testEnvVars
+.vercel/
+*.local
