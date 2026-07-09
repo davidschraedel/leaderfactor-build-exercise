@@ -100,7 +100,7 @@
 
 ## Phase 5: Admin Rollup Page
 
-- [ ] **Task:** Build admin view (`app/routes/admin.tsx`) with org-wide and per-manager check-in rates; replace Phase 2 stub route
+- [x] **Task:** Build admin view (`app/routes/admin.tsx`) with org-wide and per-manager check-in rates; replace Phase 2 stub route
   - **Dependencies:** Seed data present
   - **Completion Criteria:** Loader aggregates all check-ins; headline metric (e.g., "68% org-wide check-in rate") renders; table or card list per manager with their team's ratio; accessible via `?role=admin`; stub route from Phase 2 removed
 
