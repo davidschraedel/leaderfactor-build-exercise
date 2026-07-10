@@ -2,6 +2,19 @@
 .cursorrules
 
 # Agentic project structure (temporary / personal)
-ai/
+# ai/
 claude.md
 agents.md
+
+
+node_modules/
+build/
+.react-router/
+.env
+.env.test
+.env.*.local
+*.testEnvVars
+.vercel/
+*.local
+.vercel
+.env*
