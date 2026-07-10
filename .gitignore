@@ -18,3 +18,4 @@ build/
 *.local
 .vercel
 .env*
+.npmrc
