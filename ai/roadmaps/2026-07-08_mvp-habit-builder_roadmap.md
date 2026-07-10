@@ -108,7 +108,7 @@
 
 ## Phase 6: Vercel Deploy & Final Polish
 
-- [ ] **Task:** Deploy to Vercel production (`vercel deploy --prod`)
+- [x] **Task:** Deploy to Vercel production (`vercel deploy --prod`)
   - **Dependencies:** All phases complete; `DATABASE_URL` and `RESEND_API_KEY` set in Vercel env vars
   - **Completion Criteria:** `vercel deploy --prod` exits 0; production URL loads the app
   - **Note:** `vercel link` not yet run — requires browser auth. Run `npx vercel link` manually, then `vercel deploy --prod`.
