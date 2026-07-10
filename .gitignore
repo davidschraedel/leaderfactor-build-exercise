@@ -16,3 +16,5 @@ build/
 *.testEnvVars
 .vercel/
 *.local
+.vercel
+.env*

@@ -10,4 +10,5 @@ export default [
   route('preview/weekly-email', 'routes/preview/weekly-email.tsx'),
   route('preview/manager-email', 'routes/preview/manager-email.tsx'),
   route('preview/send-demo', 'routes/preview/send-demo.tsx'),
+  route('api/seed', 'routes/api.seed.ts'),
 ] satisfies RouteConfig;

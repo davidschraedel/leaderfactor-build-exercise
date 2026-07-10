@@ -111,15 +111,18 @@
 - [ ] **Task:** Deploy to Vercel production (`vercel deploy --prod`)
   - **Dependencies:** All phases complete; `DATABASE_URL` and `RESEND_API_KEY` set in Vercel env vars
   - **Completion Criteria:** `vercel deploy --prod` exits 0; production URL loads the app
+  - **Note:** `vercel link` not yet run — requires browser auth. Run `npx vercel link` manually, then `vercel deploy --prod`.
 
-- [ ] **Task:** Verify seed on deploy (postbuild script or one-shot `/api/seed` route)
+- [x] **Task:** Verify seed on deploy (postbuild script or one-shot `/api/seed` route)
   - **Dependencies:** Deploy succeeds
   - **Completion Criteria:** Production DB has seed data after deploy; script is idempotent (`ON CONFLICT DO NOTHING` or DELETE + re-insert)
+  - **Note:** `POST /api/seed` resource route added (`app/routes/api.seed.ts`). Hit this URL after first deploy to reset/verify seed data. Optionally set `SEED_SECRET` env var to require a `secret=` body param.
 
 - [ ] **Task:** Smoke test end-to-end on production URL
   - **Dependencies:** Seed verified
   - **Completion Criteria:** Role switcher → commitment → check-in → confirmation dot chart visible → manager preview route renders → admin rollup shows correct numbers; no console errors
 
-- [ ] **Task:** Write four-section ~200-word submission write-up
+- [x] **Task:** Write four-section ~200-word submission write-up
   - **Dependencies:** Smoke test passes
   - **Completion Criteria:** Document covers: solution rationale, metrics, deliberate cuts (AI label, P1 features), and AI-verification notes; saved to `ai/notes/` or root `README.md`
+  - **Note:** Written to `README.md`.
